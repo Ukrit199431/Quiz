@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Army Study — วันจันทร์: คณิตศาสตร์</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sarabun', Tahoma, 'Arial Unicode MS', sans-serif;
+    background: #0d1117;
+    color: #e6edf3;
+    min-height: 100vh;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  /* ─── HEADER ─── */
+  .header {
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    border-bottom: 3px solid #c8a84b;
+    padding: 28px 24px 20px;
+  }
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .logo {
+    font-size: 26px;
+    font-weight: 800;
+    color: #c8a84b;
+    letter-spacing: 2px;
+  }
+  .logo span { color: #e6edf3; }
+  .date-badge {
+    background: rgba(200,168,75,0.15);
+    border: 1px solid #c8a84b;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    color: #c8a84b;
+  }
+  .progress-bar-wrap {
+    max-width: 860px;
+    margin: 16px auto 0;
+  }
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #8b949e;
+    margin-bottom: 6px;
+  }
+  .progress-bar {
+    height: 6px;
+    background: #21262d;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #c8a84b, #f0d060);
+    border-radius: 99px;
+    width: 0.8%; /* Week 1 of 130 weeks */
+    transition: width 1s ease;
+  }
+
+  /* ─── SUBJECT BANNER ─── */
+  .subject-banner {
+    max-width: 860px;
+    margin: 28px auto 0;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .subject-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #1a6b3a, #2d9e5a);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(29,185,84,0.3);
+  }
+  .subject-info h1 {
+    font-size: 24px;
+    font-weight: 800;
+    color: #fff;
+  }
+  .subject-info p {
+    font-size: 14px;
+    color: #8b949e;
+    margin-top: 2px;
+  }
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 700;
+    background: rgba(29,185,84,0.2);
+    color: #3fb960;
+    border: 1px solid #2d9e5a;
+    margin-left: 8px;
+    vertical-align: middle;
+  }
+
+  /* ─── MAIN CONTENT ─── */
+  .container {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* ─── CARD ─── */
+  .card {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #c8a84b;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon { font-size: 20px; }
+
+  /* ─── OBJECTIVES ─── */
+  .obj-list {
+    list-style: none;
+  }
+  .obj-list li {
+    padding: 8px 0;
+    border-bottom: 1px solid #21262d;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 15px;
+  }
+  .obj-list li:last-child { border-bottom: none; }
+  .obj-list li::before {
+    content: '✦';
+    color: #c8a84b;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  /* ─── LESSON SECTIONS ─── */
+  .lesson-section {
+    margin-bottom: 20px;
+  }
+  .lesson-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: #c8a84b;
+    color: #0d1117;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: 800;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+  .lesson-section h3 {
+    font-size: 17px;
+    font-weight: 700;
+    color: #e6edf3;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .formula-box {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-left: 4px solid #c8a84b;
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin: 10px 0;
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    color: #f0e68c;
+    letter-spacing: 0.5px;
+  }
+  .note-box {
+    background: rgba(200,168,75,0.08);
+    border: 1px solid rgba(200,168,75,0.3);
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #d4b896;
+  }
+  .note-box strong { color: #c8a84b; }
+  .example-box {
+    background: rgba(29,185,84,0.07);
+    border: 1px solid rgba(29,185,84,0.25);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 10px 0;
+  }
+  .example-box .ex-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #3fb960;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+  .example-box .ex-eq {
+    font-size: 16px;
+    font-family: 'Courier New', monospace;
+    color: #e6edf3;
+  }
+  .example-box .ex-ans {
+    font-size: 14px;
+    color: #8b949e;
+    margin-top: 4px;
+  }
+  .example-box .ex-ans span { color: #3fb960; font-weight: 700; }
+
+  /* ─── RULES TABLE ─── */
+  .rules-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+  }
+  .rules-table th {
+    background: rgba(200,168,75,0.15);
+    color: #c8a84b;
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 14px;
+    border-bottom: 1px solid #30363d;
+  }
+  .rules-table td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #21262d;
+    font-size: 15px;
+  }
+  .rules-table tr:last-child td { border-bottom: none; }
+  .rules-table td:first-child { color: #c8a84b; font-family: 'Courier New', monospace; font-size: 14px; }
+  .rules-table td:last-child { color: #8b949e; font-size: 14px; }
+
+  /* ─── DIVIDER ─── */
+  .divider {
+    border: none;
+    border-top: 1px solid #21262d;
+    margin: 4px 0 16px;
+  }
+
+  /* ─── QUIZ SECTION ─── */
+  .quiz-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  .quiz-score-display {
+    font-size: 14px;
+    color: #8b949e;
+  }
+  .quiz-score-display span {
+    color: #c8a84b;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .question-block {
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #21262d;
+  }
+  .question-block:last-of-type { border-bottom: none; }
+  .q-num {
+    font-size: 12px;
+    color: #8b949e;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .q-text {
+    font-size: 17px;
+    font-weight: 600;
+    color: #e6edf3;
+    margin-bottom: 14px;
+    font-family: 'Courier New', monospace;
+  }
+  .q-text .small { font-family: 'Sarabun', sans-serif; font-size: 15px; font-weight: 400; }
+  .options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+  @media(max-width: 480px) { .options { grid-template-columns: 1fr; } }
+  .option-btn {
+    background: #21262d;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    padding: 12px 16px;
+    color: #e6edf3;
+    font-size: 15px;
+    font-family: 'Sarabun', Tahoma, sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+  }
+  .option-btn:hover:not(:disabled) {
+    background: #2d333b;
+    border-color: #c8a84b;
+    color: #c8a84b;
+  }
+  .option-btn.correct {
+    background: rgba(29,185,84,0.15);
+    border-color: #3fb960;
+    color: #3fb960;
+  }
+  .option-btn.wrong {
+    background: rgba(248,81,73,0.12);
+    border-color: #f85149;
+    color: #f85149;
+  }
+  .option-btn:disabled { cursor: default; }
+  .q-feedback {
+    margin-top: 10px;
+    font-size: 14px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: none;
+  }
+  .q-feedback.show { display: block; }
+  .q-feedback.ok { background: rgba(29,185,84,0.1); color: #3fb960; }
+  .q-feedback.no { background: rgba(248,81,73,0.1); color: #f85149; }
+
+  /* ─── SUBMIT & RESULT ─── */
+  .submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, #c8a84b, #f0d060);
+    color: #0d1117;
+    font-size: 18px;
+    font-weight: 800;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-family: 'Sarabun', Tahoma, sans-serif;
+    transition: opacity 0.2s;
+    margin-top: 10px;
+    letter-spacing: 1px;
+  }
+  .submit-btn:hover { opacity: 0.88; }
+  .submit-btn:disabled { opacity: 0.4; cursor: default; }
+
+  .result-card {
+    display: none;
+    text-align: center;
+    padding: 32px 24px;
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 14px;
+    margin-top: 20px;
+  }
+  .result-card.show { display: block; }
+  .result-score {
+    font-size: 64px;
+    font-weight: 800;
+    color: #c8a84b;
+    line-height: 1;
+  }
+  .result-out-of {
+    font-size: 20px;
+    color: #8b949e;
+    margin-bottom: 16px;
+  }
+  .result-stars {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+  .result-msg {
+    font-size: 18px;
+    font-weight: 600;
+    color: #e6edf3;
+    margin-bottom: 8px;
+  }
+  .result-sub {
+    font-size: 14px;
+    color: #8b949e;
+  }
+  .reset-btn {
+    margin-top: 20px;
+    padding: 10px 28px;
+    background: transparent;
+    border: 1px solid #30363d;
+    border-radius: 10px;
+    color: #8b949e;
+    font-family: 'Sarabun', Tahoma, sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .reset-btn:hover { border-color: #c8a84b; color: #c8a84b; }
+
+  /* ─── NEXT DAY HINT ─── */
+  .next-day {
+    background: #161b22;
+    border: 1px solid #21262d;
+    border-radius: 14px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+  .next-day-left { font-size: 14px; color: #8b949e; }
+  .next-day-left strong { color: #e6edf3; display: block; font-size: 16px; margin-top: 2px; }
+  .next-arrow { font-size: 24px; color: #30363d; }
+
+  /* ─── FOOTER ─── */
+  .footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 13px;
+    color: #30363d;
+    border-top: 1px solid #161b22;
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">⚔ ARMY<span> Study</span></div>
+    <div class="date-badge">วันจันทร์ที่ 4 พฤษภาคม 2569 • สัปดาห์ที่ 1</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-label">
+      <span>ความคืบหน้า 2.5 ปี</span>
+      <span>สัปดาห์ 1 / 130</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SUBJECT BANNER -->
+<div class="subject-banner" style="margin-bottom:0;">
+</div>
+
+<div class="container">
+
+  <!-- Subject title -->
+  <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;">
+    <div class="subject-icon">🔢</div>
+    <div class="subject-info">
+      <h1>คณิตศาสตร์ <span class="tag">ระยะที่ 1</span></h1>
+      <p>หัวข้อวันนี้: เลขยกกำลัง (Exponents) • ประมาณ 45 นาที</p>
+    </div>
+  </div>
+
+  <!-- OBJECTIVES -->
+  <div class="card">
+    <div class="card-title"><span class="icon">🎯</span> สิ่งที่จะได้เรียนวันนี้</div>
+    <ul class="obj-list">
+      <li>ความหมายของเลขยกกำลัง aⁿ คืออะไร</li>
+      <li>กฎการคูณ: aᵐ × aⁿ = aᵐ⁺ⁿ</li>
+      <li>กฎการหาร: aᵐ ÷ aⁿ = aᵐ⁻ⁿ</li>
+      <li>กฎยกกำลังซ้อน: (aᵐ)ⁿ = aᵐⁿ</li>
+      <li>เลขยกกำลัง 0 และเลขยกกำลังลบ</li>
+      <li>ทำแบบทดสอบ 10 ข้อ วัดความเข้าใจ</li>
+    </ul>
+  </div>
+
+  <!-- LESSON -->
+  <div class="card">
+    <div class="card-title"><span class="icon">📖</span> บทเรียน — อ่านให้ครบก่อนทำข้อสอบ</div>
+
+    <!-- ══ 1 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">1</span>เลขยกกำลังคืออะไร?</h3>
+      <p style="color:#8b949e;font-size:15px;margin-bottom:12px;">
+        ในชีวิตจริง เราเจอการคูณซ้ำๆ บ่อยมาก เช่น พื้นที่สี่เหลี่ยม = ด้าน × ด้าน<br>
+        เลขยกกำลังคือ <strong style="color:#e6edf3;">ทางลัดเขียน</strong> แทนการคูณซ้ำ
+      </p>
+      <div class="formula-box">aⁿ  =  a × a × a × … × a  ← คูณ a กัน n ครั้ง
+─────────────────────────────────
+  a  คือ  ฐาน  (Base)    — ตัวที่ถูกคูณ
+  n  คือ  เลขชี้กำลัง (Exponent) — จำนวนครั้งที่คูณ</div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0;">
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง A</div>
+          <div class="ex-eq">2⁴</div>
+          <div class="ex-ans" style="margin-top:6px;">= 2 × 2 × 2 × 2<br>= 4 × 4 = <span>16</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง B</div>
+          <div class="ex-eq">3³</div>
+          <div class="ex-ans" style="margin-top:6px;">= 3 × 3 × 3<br>= 9 × 3 = <span>27</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง C</div>
+          <div class="ex-eq">5²</div>
+          <div class="ex-ans" style="margin-top:6px;">= 5 × 5<br>= <span>25</span> ← เรียกว่า "5 กำลังสอง"</div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง D</div>
+          <div class="ex-eq">10³</div>
+          <div class="ex-ans" style="margin-top:6px;">= 10 × 10 × 10<br>= <span>1,000</span></div>
+        </div>
+      </div>
+      <div class="note-box">⚠️ <strong>ระวัง!</strong> 2³ ≠ 2×3 = 6 &nbsp;|&nbsp; 2³ = 2×2×2 = <strong>8</strong><br>เลขชี้กำลัง <u>ไม่ใช่</u>การคูณธรรมดา แต่คือจำนวน<u>ครั้ง</u>ที่คูณฐานด้วยตัวเอง</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 2 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">2</span>กฎ ① — การคูณฐานเดียวกัน</h3>
+      <div class="formula-box">aᵐ × aⁿ  =  aᵐ⁺ⁿ  ← บวกเลขชี้กำลัง</div>
+      <p style="color:#8b949e;font-size:14px;margin:10px 0 6px;"><strong style="color:#c8a84b;">ทำไมถึงบวก?</strong> — กางออกดูทีละตัว:</p>
+      <div class="formula-box" style="font-size:14px;">2³ × 2²
+= (2×2×2) × (2×2)
+= 2×2×2×2×2
+= 2⁵  ← นับดูมี 5 ตัว (3+2)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+        <div class="example-box">
+          <div class="ex-label">ฝึก 1</div>
+          <div class="ex-eq">3² × 3⁴ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 3^(2+4) = 3⁶<br>= 729 → <span>729</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ฝึก 2</div>
+          <div class="ex-eq">5¹ × 5³ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 5^(1+3) = 5⁴<br>= <span>625</span></div>
+        </div>
+      </div>
+      <div class="note-box">⚠️ <strong>ใช้ได้เฉพาะฐานเดียวกันเท่านั้น!</strong><br>
+      2³ × 3² ≠ 6⁵ &nbsp; (ฐานต่างกัน — ห้ามบวกกำลัง)<br>
+      2³ × 3² = 8 × 9 = 72 &nbsp;← ต้องคำนวณแยกกัน</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 3 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">3</span>กฎ ② — การหารฐานเดียวกัน</h3>
+      <div class="formula-box">aᵐ ÷ aⁿ  =  aᵐ⁻ⁿ  ← ลบเลขชี้กำลัง</div>
+      <p style="color:#8b949e;font-size:14px;margin:10px 0 6px;"><strong style="color:#c8a84b;">ทำไมถึงลบ?</strong> — มองเป็นเศษส่วนแล้วตัดกัน:</p>
+      <div class="formula-box" style="font-size:14px;">3⁵ ÷ 3²
+= (3×3×3×3×3) ÷ (3×3)
+= (3×3×3×3×3) / (3×3)
+  ↑ ตัด 3 ออก 2 ตัว เหลือ 3 ตัว
+= 3³ = 27  ← (5−2 = 3)</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+        <div class="example-box">
+          <div class="ex-label">ฝึก 1</div>
+          <div class="ex-eq">4⁶ ÷ 4² = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 4^(6−2) = 4⁴<br>= <span>256</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ฝึก 2</div>
+          <div class="ex-eq">7³ ÷ 7¹ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 7^(3−1) = 7²<br>= <span>49</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 4 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">4</span>กฎ ③ — ยกกำลังซ้อน</h3>
+      <div class="formula-box">(aᵐ)ⁿ  =  aᵐˣⁿ  ← คูณเลขชี้กำลัง</div>
+      <p style="color:#8b949e;font-size:14px;margin:10px 0 6px;"><strong style="color:#c8a84b;">ทำไมถึงคูณ?</strong> — กางวงเล็บออก:</p>
+      <div class="formula-box" style="font-size:14px;">(2³)⁴
+= 2³ × 2³ × 2³ × 2³   ← ยก 2³ ขึ้น 4 ครั้ง
+= 2^(3+3+3+3)          ← ใช้กฎการคูณ
+= 2^(3×4) = 2¹²        ← 3 บวก 4 ครั้ง = 3×4</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+        <div class="example-box">
+          <div class="ex-label">ฝึก 1</div>
+          <div class="ex-eq">(5²)³ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 5^(2×3) = 5⁶<br>= <span>15,625</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ฝึก 2</div>
+          <div class="ex-eq">(10²)² = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 10^(2×2) = 10⁴<br>= <span>10,000</span></div>
+        </div>
+      </div>
+      <div class="note-box">⚠️ <strong>ระวังสับสน!</strong><br>
+      (2³)⁴ = 2¹² ← คูณกำลัง ✓<br>
+      2³ × 2⁴ = 2⁷ ← บวกกำลัง ✓<br>
+      สองอย่างนี้ไม่เหมือนกัน!</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 5 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">5</span>กฎ ④ — กำลังศูนย์ (ทำไม a⁰ = 1?)</h3>
+      <div class="formula-box">a⁰  =  1  (เมื่อ a ≠ 0)</div>
+      <p style="color:#8b949e;font-size:14px;margin:10px 0 6px;"><strong style="color:#c8a84b;">พิสูจน์ได้จากกฎการหาร:</strong></p>
+      <div class="formula-box" style="font-size:14px;">5³ ÷ 5³  =  5^(3−3)  =  5⁰
+แต่ตัวเลขใดก็ตามหารตัวเองได้ 1 เสมอ:
+5³ ÷ 5³  =  125 ÷ 125  =  1
+ดังนั้น 5⁰ = 1  ✓</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:12px;">
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง</div>
+          <div class="ex-eq">7⁰ = <span style="color:#3fb960">1</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง</div>
+          <div class="ex-eq">999⁰ = <span style="color:#3fb960">1</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ตัวอย่าง</div>
+          <div class="ex-eq">(x+1)⁰ = <span style="color:#3fb960">1</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 6 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">6</span>กฎ ⑤ — กำลังลบ (ทำไม a⁻ⁿ = 1/aⁿ?)</h3>
+      <div class="formula-box">a⁻ⁿ  =  1 / aⁿ  ← กลับเป็นส่วนล่าง</div>
+      <p style="color:#8b949e;font-size:14px;margin:10px 0 6px;"><strong style="color:#c8a84b;">พิสูจน์จากกฎการหาร:</strong></p>
+      <div class="formula-box" style="font-size:14px;">2³ ÷ 2⁵  =  2^(3−5)  =  2⁻²
+แต่กางออก:
+2³ ÷ 2⁵  =  (2×2×2) / (2×2×2×2×2)
+           =  1 / (2×2)  =  1/2²  =  1/4
+ดังนั้น  2⁻²  =  1/4  ✓</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+        <div class="example-box">
+          <div class="ex-label">ฝึก 1</div>
+          <div class="ex-eq">3⁻³ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= 1/3³ = 1/27<br>≈ <span>0.037</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ฝึก 2 — เศษส่วน</div>
+          <div class="ex-eq">(½)⁻³ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">กลับเศษส่วน → (2/1)³<br>= 2³ = <span>8</span></div>
+        </div>
+      </div>
+      <div class="note-box">💡 <strong>เทคนิคเศษส่วน:</strong> (a/b)⁻ⁿ = (b/a)ⁿ &nbsp; ← กลับเศษส่วน แล้วเลขชี้กำลังกลายเป็นบวก<br>
+      เช่น (2/3)⁻² = (3/2)² = 9/4</div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 7 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">7</span>กฎพิเศษ — คูณต่างฐาน กำลังเท่ากัน</h3>
+      <div class="formula-box">aⁿ × bⁿ  =  (a×b)ⁿ  ← รวมฐานได้เพราะกำลังเท่ากัน</div>
+      <div class="formula-box" style="font-size:14px;">2² × 3²
+= (2×2) × (3×3)
+= (2×3) × (2×3)   ← จัดกลุ่มใหม่
+= (2×3)²  =  6²  =  36</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px;">
+        <div class="example-box">
+          <div class="ex-label">ฝึก 1</div>
+          <div class="ex-eq">4² × 5² = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= (4×5)² = 20²<br>= <span>400</span></div>
+        </div>
+        <div class="example-box">
+          <div class="ex-label">ฝึก 2</div>
+          <div class="ex-eq">3³ × 2³ = ?</div>
+          <div class="ex-ans" style="margin-top:6px;">= (3×2)³ = 6³<br>= <span>216</span></div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ 8 ══ -->
+    <div class="lesson-section">
+      <h3><span class="lesson-num">8</span>ตัวอย่างโจทย์รวม — วิธีทำทีละขั้น</h3>
+
+      <div class="example-box" style="margin-bottom:10px;">
+        <div class="ex-label">โจทย์ A — รวมหลายกฎ</div>
+        <div class="ex-eq">2³ × 2⁴ ÷ 2⁵ = ?</div>
+        <div class="ex-ans" style="margin-top:8px;line-height:2;">
+          ขั้น 1: คูณก่อน &nbsp;→ 2³ × 2⁴ = 2^(3+4) = 2⁷<br>
+          ขั้น 2: หาร &nbsp;→ 2⁷ ÷ 2⁵ = 2^(7−5) = 2²<br>
+          ขั้น 3: คำนวณ → 2² = <span>4</span>
+        </div>
+      </div>
+
+      <div class="example-box" style="margin-bottom:10px;">
+        <div class="ex-label">โจทย์ B — หา k จากตัวแปร</div>
+        <div class="ex-eq">x⁵ × xᵏ = x⁹  →  k = ?</div>
+        <div class="ex-ans" style="margin-top:8px;line-height:2;">
+          ใช้กฎคูณ: x^(5+k) = x⁹<br>
+          ฐานเดียวกัน → เลขชี้กำลังต้องเท่ากัน<br>
+          5 + k = 9 &nbsp;→ &nbsp;k = <span>4</span>
+        </div>
+      </div>
+
+      <div class="example-box">
+        <div class="ex-label">โจทย์ C — กำลังซ้อน + กำลังลบ</div>
+        <div class="ex-eq">(4²)⁻¹ = ?</div>
+        <div class="ex-ans" style="margin-top:8px;line-height:2;">
+          วิธี 1 (ยกกำลังก่อน): 4^(2×-1) = 4⁻² = 1/4² = <span>1/16</span><br>
+          วิธี 2 (กลับก่อน): 1/(4²)¹ = 1/16 ← ได้ผลเหมือนกัน ✓
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider">
+
+    <!-- ══ สรุป ══ -->
+    <div class="lesson-section" style="margin-bottom:0;">
+      <h3><span class="lesson-num" style="background:#30363d;color:#8b949e;">★</span>สรุปกฎทั้งหมด — ดูก่อนทำข้อสอบ</h3>
+      <table class="rules-table">
+        <tr><th>กฎ</th><th>สูตร</th><th>จำง่ายๆ</th></tr>
+        <tr><td>① คูณฐานเดียวกัน</td><td>aᵐ × aⁿ = aᵐ⁺ⁿ</td><td>บวกกำลัง</td></tr>
+        <tr><td>② หารฐานเดียวกัน</td><td>aᵐ ÷ aⁿ = aᵐ⁻ⁿ</td><td>ลบกำลัง</td></tr>
+        <tr><td>③ ยกกำลังซ้อน</td><td>(aᵐ)ⁿ = aᵐⁿ</td><td>คูณกำลัง</td></tr>
+        <tr><td>④ กำลังศูนย์</td><td>a⁰ = 1</td><td>ทุกตัวยกศูนย์ได้ 1</td></tr>
+        <tr><td>⑤ กำลังลบ</td><td>a⁻ⁿ = 1/aⁿ</td><td>กลับลงมาเป็นตัวหาร</td></tr>
+        <tr><td>⑥ ต่างฐาน กำลังเท่า</td><td>aⁿ × bⁿ = (ab)ⁿ</td><td>รวมฐานเมื่อกำลังเท่ากัน</td></tr>
+      </table>
+    </div>
+
+  </div>
+
+  <!-- QUIZ -->
+  <div class="card">
+    <div class="quiz-header">
+      <div class="card-title" style="margin-bottom:0"><span class="icon">✏️</span> แบบทดสอบ</div>
+      <div class="quiz-score-display">คะแนน: <span id="liveScore">0</span> / 10</div>
+    </div>
+    <p style="font-size:14px;color:#8b949e;margin-bottom:20px;">เลือกคำตอบที่ถูกต้อง — ทำครบทุกข้อแล้วกดตรวจ</p>
+
+    <div id="quiz-container"></div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitQuiz()" disabled>ตรวจคำตอบ ✦</button>
+  </div>
+
+  <!-- RESULT (hidden until submit) -->
+  <div class="result-card" id="resultCard">
+    <div class="result-score" id="resultScore">0</div>
+    <div class="result-out-of">จาก 10 คะแนน</div>
+    <div class="result-stars" id="resultStars">⭐</div>
+    <div class="result-msg" id="resultMsg">—</div>
+    <div class="result-sub" id="resultSub">—</div>
+    <button class="reset-btn" onclick="resetQuiz()">ทำใหม่อีกครั้ง</button>
+  </div>
+
+  <!-- NEXT DAY PREVIEW -->
+  <div class="next-day" style="margin-top:20px;">
+    <div class="next-day-left">
+      วันพรุ่งนี้ (อังคาร)
+      <strong>🔬 วิทยาศาสตร์ — กลศาสตร์ และ งาน/พลังงาน</strong>
+    </div>
+    <div class="next-arrow">→</div>
+  </div>
+
+</div><!-- /container -->
+
+<div class="footer">Army Study System • เตรียมพร้อม 2 ปีครึ่ง สู่เตรียมทหาร</div>
+
+<script>
+// ─── QUIZ DATA ───────────────────────────────────────────
+const questions = [
+  {
+    q: "3⁴ = ?",
+    opts: ["64", "81", "12", "34"],
+    ans: 1,
+    explain: "3⁴ = 3×3×3×3 = 9×9 = 81"
+  },
+  {
+    q: "2³ × 2⁵ = ?",
+    opts: ["2⁸ = 256", "2¹⁵", "4⁸", "2¹⁶"],
+    ans: 0,
+    explain: "ฐานเดียวกัน → บวกเลขชี้กำลัง: 2^(3+5) = 2⁸ = 256"
+  },
+  {
+    q: "6⁵ ÷ 6³ = ?",
+    opts: ["1² = 1", "6⁸", "6¹⁵", "6² = 36"],
+    ans: 3,
+    explain: "ฐานเดียวกัน → ลบเลขชี้กำลัง: 6^(5-3) = 6² = 36"
+  },
+  {
+    q: "(3²)⁴ = ?",
+    opts: ["3⁶ = 729", "3⁸ = 6561", "9⁸", "3¹⁶"],
+    ans: 1,
+    explain: "ยกกำลังซ้อน: 3^(2×4) = 3⁸ = 6561"
+  },
+  {
+    q: "999⁰ = ?",
+    opts: ["999", "0", "1", "ไม่มีคำตอบ"],
+    ans: 2,
+    explain: "a⁰ = 1 เสมอ สำหรับ a ≠ 0 ดังนั้น 999⁰ = 1"
+  },
+  {
+    q: "4⁻² = ?",
+    opts: ["-16", "1/8", "1/16", "-1/16"],
+    ans: 2,
+    explain: "a⁻ⁿ = 1/aⁿ → 4⁻² = 1/4² = 1/16"
+  },
+  {
+    q: "2³ × 2⁴ ÷ 2⁵ = ?",
+    opts: ["2² = 4", "2¹² = 4096", "2⁰ = 1", "2³ = 8"],
+    ans: 0,
+    explain: "2^(3+4) ÷ 2⁵ = 2⁷ ÷ 2⁵ = 2^(7-5) = 2² = 4"
+  },
+  {
+    q: "ถ้า x⁵ × xᵏ = x⁹  แล้ว k = ?",
+    opts: ["45", "14", "4", "2"],
+    ans: 2,
+    explain: "x^(5+k) = x⁹ → 5 + k = 9 → k = 4"
+  },
+  {
+    q: "(½)⁻³ = ?",
+    opts: ["-8", "1/8", "1/6", "8"],
+    ans: 3,
+    explain: "(½)⁻³ = (2)³ = 8  (กลับเศษส่วน แล้วเลขชี้กำลังกลายเป็นบวก)"
+  },
+  {
+    q: "2² × 3² = ?",
+    opts: ["5² = 25", "6⁴ = 1296", "6¹ = 6", "6² = 36"],
+    ans: 3,
+    explain: "aⁿ × bⁿ = (a×b)ⁿ → 2² × 3² = (2×3)² = 6² = 36"
+  }
+];
+
+// ─── STATE ───────────────────────────────────────────────
+let selected = new Array(questions.length).fill(null);
+let submitted = false;
+let liveScore = 0;
+
+// ─── RENDER QUIZ ─────────────────────────────────────────
+function renderQuiz() {
+  const container = document.getElementById("quiz-container");
+  container.innerHTML = "";
+  questions.forEach((q, qi) => {
+    const block = document.createElement("div");
+    block.className = "question-block";
+    block.id = "block-" + qi;
+
+    const optsHtml = q.opts.map((o, oi) => `
+      <button class="option-btn" id="opt-${qi}-${oi}" onclick="selectOpt(${qi},${oi})">${o}</button>
+    `).join("");
+
+    block.innerHTML = `
+      <div class="q-num">ข้อที่ ${qi + 1} / 10</div>
+      <div class="q-text">${q.q}</div>
+      <div class="options">${optsHtml}</div>
+      <div class="q-feedback" id="fb-${qi}"></div>
+    `;
+    container.appendChild(block);
+  });
+}
+
+// ─── SELECT OPTION ────────────────────────────────────────
+function selectOpt(qi, oi) {
+  if (submitted) return;
+  // Deselect previous
+  const prev = selected[qi];
+  if (prev !== null) {
+    const prevBtn = document.getElementById(`opt-${qi}-${prev}`);
+    if (prevBtn) {
+      prevBtn.style.background = "";
+      prevBtn.style.borderColor = "";
+      prevBtn.style.color = "";
+    }
+  }
+  selected[qi] = oi;
+  const btn = document.getElementById(`opt-${qi}-${oi}`);
+  btn.style.background = "rgba(200,168,75,0.15)";
+  btn.style.borderColor = "#c8a84b";
+  btn.style.color = "#c8a84b";
+
+  // Update live score (preview only — shows selected count)
+  const answered = selected.filter(s => s !== null).length;
+  document.getElementById("submitBtn").disabled = answered < questions.length;
+}
+
+// ─── SUBMIT ───────────────────────────────────────────────
+function submitQuiz() {
+  if (submitted) return;
+  submitted = true;
+  document.getElementById("submitBtn").disabled = true;
+
+  let score = 0;
+  questions.forEach((q, qi) => {
+    const userAns = selected[qi];
+    const correct = q.ans;
+    const fb = document.getElementById(`fb-${qi}`);
+
+    for (let oi = 0; oi < q.opts.length; oi++) {
+      const btn = document.getElementById(`opt-${qi}-${oi}`);
+      btn.disabled = true;
+      btn.style.background = "";
+      btn.style.borderColor = "";
+      btn.style.color = "";
+    }
+
+    const correctBtn = document.getElementById(`opt-${qi}-${correct}`);
+    correctBtn.classList.add("correct");
+
+    if (userAns === correct) {
+      score++;
+      fb.textContent = "✓ ถูกต้อง! " + q.explain;
+      fb.className = "q-feedback show ok";
+    } else {
+      const wrongBtn = document.getElementById(`opt-${qi}-${userAns}`);
+      if (wrongBtn) wrongBtn.classList.add("wrong");
+      fb.textContent = "✗ ผิด — " + q.explain;
+      fb.className = "q-feedback show no";
+    }
+  });
+
+  document.getElementById("liveScore").textContent = score;
+  showResult(score);
+}
+
+// ─── RESULT ──────────────────────────────────────────────
+function showResult(score) {
+  const card = document.getElementById("resultCard");
+  document.getElementById("resultScore").textContent = score;
+  card.classList.add("show");
+
+  let stars, msg, sub;
+  if (score === 10) {
+    stars = "⭐⭐⭐"; msg = "เยี่ยมมาก! คะแนนเต็ม!";
+    sub = "ความเข้าใจดีมาก พร้อมเดินหน้าสู่หัวข้อถัดไปแล้ว";
+  } else if (score >= 8) {
+    stars = "⭐⭐"; msg = "ผ่านฉลุย! ทำได้ดีมาก";
+    sub = "ทบทวนข้อที่ผิดอีกรอบแล้วพักได้เลย";
+  } else if (score >= 6) {
+    stars = "⭐"; msg = "ผ่านเกณฑ์แล้ว ยังพัฒนาได้อีก";
+    sub = "ลองอ่านกฎที่ผิดซ้ำ แล้วทำใหม่เพื่อให้ได้ 8+";
+  } else {
+    stars = "🔁"; msg = "ยังไม่ผ่าน — อย่าท้อ!";
+    sub = "กลับไปอ่านบทเรียนใหม่อีกครั้งแล้วลองทำข้อสอบใหม่";
+  }
+
+  document.getElementById("resultStars").textContent = stars;
+  document.getElementById("resultMsg").textContent = msg;
+  document.getElementById("resultSub").textContent = sub;
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+// ─── RESET ───────────────────────────────────────────────
+function resetQuiz() {
+  submitted = false;
+  selected = new Array(questions.length).fill(null);
+  document.getElementById("liveScore").textContent = "0";
+  document.getElementById("resultCard").classList.remove("show");
+  document.getElementById("submitBtn").disabled = true;
+  renderQuiz();
+  document.getElementById("quiz-container").scrollIntoView({ behavior: "smooth" });
+}
+
+// ─── INIT ─────────────────────────────────────────────────
+renderQuiz();
+setTimeout(() => {
+  document.getElementById("progressFill").style.width = "0.8%";
+}, 300);
+</script>
+
+</body>
+</html>
